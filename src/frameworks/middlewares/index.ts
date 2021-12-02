@@ -1,20 +1,19 @@
-// const bodyParser = require('body-parser');
-// const cors = require('cors');
-// var cookieSession = require('cookie-session');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import { routes } from '../web/routes';
+import { logMiddleware } from './log-middleware';
 
-// require('../../../authentication');
+export const attachMiddlewares = (app: any, db: number) => {
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(cors());
 
-const routesMiddleware = require('./routesMiddleware');
+  // log every operation to the db
+  // app.use(logMiddleware());
 
-export const attachMiddlewares = (app: any) => {
-  // app.use(bodyParser.json({ limit: '50mb' }));
-  // app.use(bodyParser.urlencoded({ extended: true }));
-  // app.use(cors());
+  app.use(routes(app, db));
 
   app.get('/', (req: any, res: any) => {
-    console.log('route "/" working');
-    res.send('working 123');
+    res.send('welcome');
   });
-
-  app.use(routesMiddleware(app));
 };
