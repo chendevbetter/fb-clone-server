@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
+    "body-parser": "^1.19.0",
+    "cm-validation": "^1.0.0",
+    "cm-validation2": "^1.0.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validation": "^3.0.8",
     "global": "^4.4.0",
-    "lodash": "^4.17.21"
+    "joi": "^17.4.2",
+    "lodash": "^4.17.21",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@types/node": "^16.11.7",
@@ -15,7 +25,7 @@
     "typescript": "^4.4.4"
   },
   "scripts": {
-    "start": "nodemon build/frameworks/web/index.js",
+    "start": "nodemon build/app.js",
     "ts": "tsc -w"
   }
 }
