@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cm-validation2": "^1.0.2",
+    "express": "^4.17.1",
+    "express-validation": "^3.0.8",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.7",
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "start": "nodemon build/app.js",
+    "ts": "tsc -w"
+  }
+}
