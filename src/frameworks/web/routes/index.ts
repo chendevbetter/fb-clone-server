@@ -5,6 +5,7 @@ import { userRouter } from './users-routes';
 export const routes = (app: Application, express: any) => {
   app.use('/api/v1/users', userRouter(express));
   app.use('/api/v1/auth', authRouter(express));
+  app.use('/', (req, res) => res.send('wop'));
 };
 
 export default routes;

@@ -1,13 +1,13 @@
 FROM node:14
 
-WORKDIR /build
+WORKDIR .
 
 COPY package.json ./
 
 RUN yarn install
 
-COPY . .
+COPY ./build .
 
-EXPOSE 8080
+EXPOSE 5555
 
-CMD ["node", "server.js"]
+CMD ["node", "app.js"]
