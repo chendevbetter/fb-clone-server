@@ -4,7 +4,6 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "cm-validation2": "^1.0.2",
     "express": "^4.17.1",
     "express-validation": "^3.0.8",
     "mysql2": "^2.3.3"
