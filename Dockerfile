@@ -1,12 +1,14 @@
 FROM node:14
 
-WORKDIR .
+WORKDIR /app
 
-COPY package.json ./
+RUN yarn global add nodemon
+
+COPY package.json .
 
 RUN yarn install
 
-COPY ./build .
+COPY build .
 
 EXPOSE 5555
 
