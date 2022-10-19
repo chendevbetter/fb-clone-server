@@ -8,9 +8,10 @@ export const authRouter = (express: any) => {
 
   // this returns an obj with methods, one of which is signup user
   // this obj has no request obj
-  const controller = signupController(authDb);
+  // const controller = signupController(authDb);
 
-  router.route('/signup').post(logMiddleware('signup'), controller.signupUser);
+  // router.route('/signup').post(logMiddleware('signup'), controller.signupUser);
+  router.route('/signup').post(logMiddleware('signup'));
 
   return router;
 };
