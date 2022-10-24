@@ -1,5 +1,5 @@
 import { IEntityUserObj } from '../../../interfaces/entities';
-import { relationalConn as conn } from './connectRelationalDb';
+import { relationDbConnection as conn } from './connectRelationalDb';
 
 // I've got a few options here:
 // 1. I use straight up sql - not recommended - I practice this in other places
@@ -9,7 +9,10 @@ import { relationalConn as conn } from './connectRelationalDb';
 // THIS project will define .env files for it to use and pass the credentials as a parameter
 // the repo alone will not be able to connect anywhre as it wont have credentials.
 
-export const relationalDb = () => {
+// console.log(conn)
+
+
+export const relationalDbQueries = () => {
   const signUpUserToDb = async (entityUserObj: IEntityUserObj) => {
     const firstName = entityUserObj.getFirstName();
     const lastName = entityUserObj.getLastName();
@@ -20,13 +23,13 @@ export const relationalDb = () => {
     const created_at = new Date()
 
     try {
-      conn.query(
-        `INSERT INTO users (first_name, last_name, email, password, birthday_date, gender, created_at) VALUES 
-        (?,?,?,?,?,?,?)`,
+      await conn.query(
+        `INSERT INTO users (first_name, last_name, email, password, birthday_date, gender, created_at) VALUES
+        ($1, $2, $3, $4, $5, $6, $7)`,
         [firstName, lastName, email, password, birthdayDate, gender, created_at]
       );
     } catch (e) {
-      console.log('problem with creating user', e);
+      console.log('problem with creating user. Error is:', e);
     }
   };
   return {
@@ -34,4 +37,4 @@ export const relationalDb = () => {
   };
 };
 
-export default relationalDb;
+export default relationalDbQueries;
