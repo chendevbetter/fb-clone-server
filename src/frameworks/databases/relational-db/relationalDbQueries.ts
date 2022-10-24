@@ -1,4 +1,4 @@
-import { IEntityUserObj } from '../../../interfaces/entities';
+import { IEntityUserObj, ILoginCredentials } from '../../../interfaces/entities';
 import { relationDbConnection as conn } from './connectRelationalDb';
 
 // I've got a few options here:
@@ -20,20 +20,46 @@ export const relationalDbQueries = () => {
     const password = entityUserObj.getPassword();
     const birthdayDate = entityUserObj.getBirthdayDate();
     const gender = entityUserObj.getGender();
-    const created_at = new Date()
+    const created_at = new Date();
 
     try {
       await conn.query(
-        `INSERT INTO users (first_name, last_name, email, password, birthday_date, gender, created_at) VALUES
-        ($1, $2, $3, $4, $5, $6, $7)`,
-        [firstName, lastName, email, password, birthdayDate, gender, created_at]
+        `INSERT INTO users (first_name, last_name, email, password, birthday_date, gender, created_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [firstName, lastName, email, password, birthdayDate, gender, created_at],
       );
     } catch (e) {
       console.log('problem with creating user. Error is:', e);
     }
   };
+
+  const loginUser = async (loginCredentials: ILoginCredentials) => {
+    const {email, password} = loginCredentials
+    const query = {
+      name: 'login-user',
+      text: 'select * from users where email = $1',
+      values: [email],
+    };
+    try {
+      let user = await conn.query(query)
+      user = user.rows[0]
+      if (!user) {
+        return { code: 404, msg: 'User does not exist' };
+      }
+        if (user.password === password) {
+          return { code: 200, msg: {  userId: user.id, msg: 'authenticated' } };
+        } else {
+          return { code: 404, msg: 'credentials do not match' };
+        }
+    } catch (e) {
+      console.log('failed login in user');
+      return { code: 500, msg: 'Could not login user'};
+    }
+  };
+
   return {
     signUpUserToDb,
+    loginUser
   };
 };
 

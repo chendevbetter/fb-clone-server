@@ -4,7 +4,6 @@ import { NextFunction } from 'express';
 export default function buildMakeUser() {
   return function makeUser(userData: IUserEntity, next: NextFunction) {
     const { firstName, lastName, emailOrNumber, password, birthdayDate, gender } = userData;
-    console.log(userData);
     // const validator = new StringsValidation();
     // let validationsArr = [];
     // validationsArr.push(validator.validateStrLength(firstName, 1, 20));

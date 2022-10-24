@@ -15,3 +15,8 @@ export interface IEntityUserObj {
   getBirthdayDate: () => string;
   getGender: () => string;
 }
+
+export interface ILoginCredentials {
+  email: string;
+  password: string;
+}

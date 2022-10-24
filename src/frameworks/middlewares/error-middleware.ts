@@ -1,8 +1,8 @@
 export const errorMiddleware = (err: any, req: any, res: any, next: any) => {
   console.log('error middleware activated', err);
 
-  err.statusCode = err.statusCode || 500;
-  return err.customMessage || err.message;
+  const {code=500, msg} = err
+  res.status(code).send(msg)
 };
 
 export default errorMiddleware;
