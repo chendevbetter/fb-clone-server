@@ -6,7 +6,7 @@ RUN yarn global add nodemon
 
 COPY package.json .
 
-RUN yarn install
+RUN npm install
 
 COPY build .
 

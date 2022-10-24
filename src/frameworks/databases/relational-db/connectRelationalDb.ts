@@ -1,12 +1,13 @@
-import mysql from 'mysql2';
-import path from 'path';
-import dotenv from 'dotenv';
+const { Pool } = require('pg')
+import * as dotenv from 'dotenv'
+dotenv.config()
 
-const relationalConn = mysql.createConnection({
-  host: process.env.RELATIONAL_DB_HOST,
-  user: process.env.RELATIONAL_DB_USER,
-  password: process.env.RELATIONAL_DB_PASSWORD,
-  database: process.env.RELATIONAL_DB_DATABASE,
-});
+const relationDbConnection = new Pool({
+  user: process.env.POSTGRES_USER,
+  host: 'postgres',
+  database: process.env.POSTGRES_DB,
+  password: process.env.POSTGRES_PASSWORD,
+  port: 5432,
+})
 
-export { relationalConn };
+export {relationDbConnection}
