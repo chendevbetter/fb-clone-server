@@ -1,20 +1,32 @@
 import { Request, Response, NextFunction } from 'express';
-import { expressParams } from '../../../interfaces/express';
-import { signupUserUsecase } from '../../../usecases/auth/signup';
+import { signupUserUseCase } from '../../../usecases/auth/signup';
+import { loginUseCase } from '../../../usecases/auth/login';
 
-export const signupController = (db: any) => {
+export const authController = (db: any) => {
   const authDB = db();
-  const signupUser = (req: Request, res: Response, next: NextFunction): void => {
+  const signupUser = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     if (req.body) {
-      signupUserUsecase(req.body, authDB, next);
-      res.send('works');
+      const result = await signupUserUseCase(req.body, authDB, next);
+      const {code, msg} = result
+      res.status(code).send(msg)
     } else {
-      next('no req obj');
+      next({ msg: 'no req obj' });
     }
   };
 
+  const login = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    if (req.body) {
+      const result = await loginUseCase(req.body, authDB, next);
+      const {code, msg} = result
+      res.status(code).send(msg)
+    } else {
+      next({ msg: 'no req obj' });
+    }
+  }
+
   return {
     signupUser,
+    login
   };
 };
 
